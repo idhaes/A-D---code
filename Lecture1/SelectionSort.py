@@ -1,9 +1,9 @@
 # The function for sorting elements in ascending order (Simplified Version)
 def selectionSort(lst):
-    for i in range(len(lst) - 1):
-        # Find the minimum in the lst[i : len(lst)]
+    for i in range(len(lst) - 1): #verkleind de lijst / -1 want slechts 1 element op het eind
+        
         currentMin = min(lst[i : ])
-        currentMinIndex = i + lst[i: ].index(currentMin)
+        currentMinIndex = i + lst[i: ].index(currentMin) # 'Nieuwe' lijst = andere indexes
         
         # Swap lst[i] with lst[currentMinIndex] if necessary
         if currentMinIndex != i:
