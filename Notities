@@ -8,7 +8,7 @@ overzicht() doet exact één ding:→ de codes tellen per registratiegroep.
 Geen functie doet twee taken door elkaar !!!!
 Dat maakt de code veel gemakkelijker te begrijpen en te verbeteren.
 -------------------------------------------------------------------------------------------------------------------------------
-
+for getal, aantal in teller.items():
 lijst = [woord.lower() for woord in woorden_splitsen(Filename)]
 
 import sys
