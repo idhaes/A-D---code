@@ -1,5 +1,5 @@
 class Stack:
-    def __init__(self):
+    def __init__(self):  # Wanneer je Stack() doet
         self.__elements = []
 
     # Return true if the stack is empty
