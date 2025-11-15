@@ -1,10 +1,15 @@
 import sys
 sys.exit()
 
+lijst(range(10))
+
 .strip
 
+import random
+random.shuffle(list)
 from random import randint
 randint(0,9)
+
 
 s.lower()
 
