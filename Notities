@@ -3,6 +3,7 @@ sys.exit()
 
 lijst(range(10))
 lijst.sort(reverse = True)
+lijst = s.split()
 
 s = s.replace(old, new)
 
