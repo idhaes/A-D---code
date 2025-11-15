@@ -11,6 +11,7 @@ s.lower()
 for ch in line:
     print(ch)
 
+print(str(counts[i]) + (" time" if counts[i] == 1 else " times"))
 
 # Werking van modulo
 # -----------------------------------------
