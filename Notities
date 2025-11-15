@@ -44,3 +44,24 @@ if x % 5 == 0:
     print(f"{x} is deelbaar door 5")
 else:
     print(f"{x} is NIET deelbaar door 5")
+---------------------------------------------------------------------------------------------------------------------------------
+1. list.sort() — sorteert in-place
+
+Dit past de lijst zelf aan.
+
+lijst = [5, 2, 8, 1]
+lijst.sort()
+print(lijst)   # [1, 2, 5, 8]
+
+Omgekeerd sorteren:
+lijst.sort(reverse=True)
+
+✅ 2. sorted() — maakt een nieuwe gesorteerde lijst
+lijst = [5, 2, 8, 1]
+gesorteerd = sorted(lijst)
+
+print(gesorteerd)  # [1, 2, 5, 8]
+print(lijst)       # originele lijst blijft onveranderd
+
+Ook met reverse=True:
+gesorteerd = sorted(lijst, reverse=True)
