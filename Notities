@@ -2,6 +2,9 @@ import sys
 sys.exit()
 
 lijst(range(10))
+lijst.sort(reverse = True)
+
+s = s.replace(old, new)
 
 .strip
 
@@ -10,13 +13,13 @@ random.shuffle(list)
 from random import randint
 randint(0,9)
 
-
 s.lower()
 
 for ch in line:
     print(ch)
 
 print(str(counts[i]) + (" time" if counts[i] == 1 else " times"))
+print(word, counts, sep = '\t'
 
 print(v, end=' ') #1 2 3 ...
 
