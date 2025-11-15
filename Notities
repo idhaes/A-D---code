@@ -15,6 +15,8 @@ print(str(counts[i]) + (" time" if counts[i] == 1 else " times"))
 
 print(v, end=' ') #1 2 3 ...
 
+v1, v2 = 2, 5
+
 # Werking van modulo
 # -----------------------------------------
 # De vergelijking voor deling met rest:
