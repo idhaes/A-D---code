@@ -1,0 +1,46 @@
+# Werking van modulo
+# -----------------------------------------
+# De vergelijking voor deling met rest:
+#   a = b * q + r
+# waarbij:
+#   q = het gehele deel (integer quotient)
+#   r = de rest (dit is wat a % b geeft)
+
+
+# -----------------------------------------
+# Modulo met negatieve getallen
+# -----------------------------------------
+# In Python heeft de uitkomst van a % b hetzelfde teken als b.
+
+print("\nNegatieve getallen:")
+print("-7 % 3  =", -7 % 3)    # 2
+print("7 % -3  =", 7 % -3)    # -2
+
+
+# -----------------------------------------
+# Toepassingen van modulo
+# -----------------------------------------
+
+# 1. Checken of een getal even of oneven is
+n = 8
+if n % 2 == 0:
+    print(f"\n{n} is even")
+else:
+    print(f"{n} is oneven")
+
+# 2. Herhalende patronen (cycli)
+i = 5
+print("5 % 3 =", i % 3)       # 2 → cyclus 0,1,2
+
+# 3. Afronden naar een veelvoud (hier: naar boven op 5)
+import math
+x = 17
+boven_afronding = math.ceil(x / 5) * 5
+print(f"\n17 naar boven afgerond op 5 = {boven_afronding}")
+
+# 4. Controleren of een getal deelbaar is
+x = 25
+if x % 5 == 0:
+    print(f"{x} is deelbaar door 5")
+else:
+    print(f"{x} is NIET deelbaar door 5")
