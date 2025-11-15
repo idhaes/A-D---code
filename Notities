@@ -1,5 +1,7 @@
 Pg 487 !
 
+lijst = [woord.lower() for woord in woorden_splitsen(Filename)]
+
 import sys
 sys.exit()
 
