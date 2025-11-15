@@ -13,6 +13,8 @@ for ch in line:
 
 print(str(counts[i]) + (" time" if counts[i] == 1 else " times"))
 
+print(v, end=' ') #1 2 3 ...
+
 # Werking van modulo
 # -----------------------------------------
 # De vergelijking voor deling met rest:
