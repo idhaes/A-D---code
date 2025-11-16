@@ -1,4 +1,5 @@
 Pg 487 !
+recursion (pg 502) - wnr string/list waarschijnkijk Helper!
 -------------------------------------------------------------------------------------------------------------------
 Feedbcack:
 is_geldig_isbn13() doet exact één ding: → controleren of een ISBN correct is.
