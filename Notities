@@ -12,6 +12,8 @@ Dat maakt de code veel gemakkelijker te begrijpen en te verbeteren.
 for getal, aantal in teller.items():
 lijst = [woord.lower() for woord in woorden_splitsen(Filename)]
 
+currentMinIndex = i + lijst[i:]/index(cuurentMin)
+
 import sys
 sys.exit()
 
