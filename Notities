@@ -105,7 +105,33 @@ lijst = [5, 2, 8, 1]
 gesorteerd = sorted(lijst)
 
 print(gesorteerd)  # [1, 2, 5, 8]
-print(lijst)       # originele lijst blijft onveranderd
+------------------------------------------------------------------------------------------------------------------------------
+Hier is de rangschikking van meest efficiënt naar minst efficiënt, gebaseerd op de gemiddelde tijdscomplexiteit (en ook typische prestaties in de praktijk):
 
+✅ 1. Merge sort
+Gemiddeld: O(n log n)
+Slechtste geval: O(n log n)
+Beste geval: O(n log n)
+Opmerking: Altijd betrouwbaar, stabiel, maar gebruikt extra geheugen.
+
+✅ 2. Quick sort
+Gemiddeld: O(n log n)
+Slechtste geval: O(n²) (maar zelden als pivot goed gekozen wordt)
+Beste geval: O(n log n)
+Opmerking: In de praktijk vaak het snelste door goede cache-prestaties en weinig overhead.
+Dus merge sort en quick sort zijn duidelijk veel efficiënter dan insertion sort en bubble sort.
+
+➖ 3. Insertion sort
+Gemiddeld: O(n²)
+Slechtste geval: O(n²)
+Beste geval: O(n) (bijna gesorteerde lijst)
+Opmerking: Veel beter dan bubble sort in de praktijk, heel efficiënt voor kleine of bijna gesorteerde lijsten.
+
+❌ 4. Bubble sort
+Gemiddeld: O(n²)
+Slechtste geval: O(n²)
+Beste geval: O(n) (als je de geoptimaliseerde versie gebruikt die stopt wanneer geen swaps meer gebeuren)
+Opmerking: Algemeen de traagste sorteermethode, zelden gebruikt.
+print(lijst)       # originele lijst blijft onveranderd
 Ook met reverse=True:
 gesorteerd = sorted(lijst, reverse=True)
