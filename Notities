@@ -120,7 +120,7 @@ STRINGS
 
 .lower()
 
-.strip()
+.strip()  #verwijdert alle spaties, tabs, nieuwe lijnen (\n)aan beide uiteinden van de string.
 
 .replace(old,new)
 
