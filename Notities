@@ -3,30 +3,24 @@ recursion (pg 502) - wnr string/list waarschijnkijk Helper!
 -------------------------------------------------------------------------------------------------------------------
 Feedbcack:
 is_geldig_isbn13() doet exact één ding: → controleren of een ISBN correct is.
-
 overzicht() doet exact één ding:→ de codes tellen per registratiegroep.
-
-Geen functie doet twee taken door elkaar !!!!
-Dat maakt de code veel gemakkelijker te begrijpen en te verbeteren.
+-----> Geen functie doet twee taken door elkaar !!!!
 -------------------------------------------------------------------------------------------------------------------------------
 for getal, aantal in teller.items():
+
 lijst = [woord.lower() for woord in woorden_splitsen(Filename)]
 
 while len(list) != 0:    (OF)    while not stack.isEmpty():
     ...pop()
 
-currentMinIndex = i + lijst[i:]/index(cuurentMin)
+currentMinIndex = i + lijst[i:].index(cuurentMin)
 
 import sys
 sys.exit()
 
 lijst(range(10))
-lijst.sort(reverse = True)
-lijst = s.split()
 
 s = s.replace(old, new)
-
-.strip
 
 import random
 random.shuffle(list)
@@ -39,11 +33,165 @@ for ch in line:
     print(ch)
 
 print(str(counts[i]) + (" time" if counts[i] == 1 else " times"))
-print(word, counts, sep = '\t'
+print(word, counts, sep = '\t')
+---------------------------------------------------------------------------------------------------------------------------------
+1. list.sort() — sorteert in-place
+Dit past de lijst zelf aan.
+lijst = [5, 2, 8, 1]
+lijst.sort()
+print(lijst)   # [1, 2, 5, 8]
 
-print(v, end=' ') #1 2 3 ...
+Omgekeerd sorteren:
+lijst.sort(reverse=True)
 
-v1, v2 = 2, 5
+✅ 2. sorted() — maakt een nieuwe gesorteerde lijst
+lijst = [5, 2, 8, 1]
+gesorteerd = sorted(lijst)
+print(gesorteerd)  # [1, 2, 5, 8]
+------------------------------------------------------------------------------------------------------------------------------
+VALKUILEN MET VARIABELEN
+
+❌ Naam-shadowing
+voorbeeld: telling = {} terwijl er een functie telling() bestaat
+
+❌ Aliassets
+a = b = set() → beide zijn dezelfde set
+✔ a=set(); b=set()
+
+❌ Verkeerde kopie
+x = lst is alias
+✔ x = lst[:]
+
+VALKUILEN MET LIJSTEN
+
+❌ list.remove(x) geeft None terug
+→ nooit: y = lst.remove(x)
+
+Gebruik altijd lijstkopie wanneer je verwijdert tijdens iteratie
+
+list(range(10)) ipv lijst(range(...))
+
+SETS EN DICTIONARIES
+
+❌ set.add(set)
+→ TypeError
+✔ set.update(iterable)
+
+.items() met haakjes
+✔ for k,v in d.items():
+❌ d.items
+
+LOOPS & CONDITIES
+
+❌ if 'A' in (vader and moeder)
+→ werkt NIET zoals je denkt (kijkt enkel naar moeder)
+✔ if 'A' in vader and 'A' in moeder
+
+❌ Onterecht gebruik van elif
+→ elif blokkeert andere mogelijkheden
+✔ gebruik losse if indien meerdere opties mogen gelden
+
+Scannen:
+for ch in line:
+
+Stack:
+while not stack.isEmpty():
+
+RECURSIE
+
+❌ recursieve call zonder return
+→ altijd: return helper(...)
+
+❌ recursie die extra werk doet na de recursive call → geen tail recursion
+
+Base case moet eenvoudig en correct zijn
+
+SORTEREN
+
+.sort() = in-place
+
+sorted() = nieuwe lijst
+
+lst.sort(reverse=True) bij aflopend
+
+random.shuffle(lst)
+
+STRINGS
+
+.lower()
+
+.strip()
+
+.replace(old,new)
+
+.split()
+
+' '.join(lst)
+
+BLOEDGROEP-SPECIFIEKE FOUTEN
+
+(Jouw grootste cluster van fouten)
+
+ABO fouten
+
+❌ Samenvoegen van alle ouder-allelen en dan tellen
+→ je moet alle combinaties één-alleltje-papa × één-alleltje-mama testen
+
+❌ elif gebruiken waardoor je slechts één ABO-fenotype toevoegt
+
+Geen onderscheid tussen genotype en fenotype
+
+❌ 'AB' verkeerd behandeld via substring (“'A' in 'AB'”) i.p.v. via sets
+
+Rhesus fouten
+
+❌ Rhesus in dezelfde functie als ABO → chaos
+
+❌ Rhesus bepaald via telling i.p.v. via combinaties
+
+✔ Rh-fenotype = '+' als er minstens één '+' in {r1,r2} zit
+
+Foutief logicapatroon
+
+❌ 'A' in (vader and moeder)
+
+❌ bloedgroep = mama.union(...) zonder te accumuleren
+
+❌ geen rekening houden met combinatoriek → vooral fout bij AB × O
+
+ALGORITMEN & EFFICIËNTIE
+
+Insertion Sort < Quick Sort < Merge Sort
+
+Altijd O(n²) vermijden tenzij onvermijdelijk
+
+Geen onnodige nested loops
+
+Gebruik sets/dicts voor O(1) lookup i.p.v. lists
+
+DIJKSTRA / GRAAF-LOGICA
+
+(Jij maakte deze fouten niet expliciet, maar dit is standaard-examenmateriaal → noodzakelijk.)
+
+visited = set()
+
+relaxatie:
+✔ if d[u] + w < d[v]:
+
+prioriteitsqueue:
+✔ key = eerste element van tuple
+→ (afstand, knoop)
+
+early stop wanneer bestemming bereikt
+
+PRINT / OUTPUT
+
+print(v, end=' ')
+
+print(word, count, sep='\t')
+
+print(str(n) + (" time" if n==1 else " times"))
+------------------------------------------------------------------------------
 
 # Werking van modulo
 # -----------------------------------------
@@ -91,50 +239,3 @@ if x % 5 == 0:
     print(f"{x} is deelbaar door 5")
 else:
     print(f"{x} is NIET deelbaar door 5")
----------------------------------------------------------------------------------------------------------------------------------
-1. list.sort() — sorteert in-place
-
-Dit past de lijst zelf aan.
-
-lijst = [5, 2, 8, 1]
-lijst.sort()
-print(lijst)   # [1, 2, 5, 8]
-
-Omgekeerd sorteren:
-lijst.sort(reverse=True)
-
-✅ 2. sorted() — maakt een nieuwe gesorteerde lijst
-lijst = [5, 2, 8, 1]
-gesorteerd = sorted(lijst)
-
-print(gesorteerd)  # [1, 2, 5, 8]
-------------------------------------------------------------------------------------------------------------------------------
-Hier is de rangschikking van meest efficiënt naar minst efficiënt, gebaseerd op de gemiddelde tijdscomplexiteit (en ook typische prestaties in de praktijk):
-
-✅ 1. Merge sort
-Gemiddeld: O(n log n)
-Slechtste geval: O(n log n)
-Beste geval: O(n log n)
-Opmerking: Altijd betrouwbaar, stabiel, maar gebruikt extra geheugen.
-
-✅ 2. Quick sort
-Gemiddeld: O(n log n)
-Slechtste geval: O(n²) (maar zelden als pivot goed gekozen wordt)
-Beste geval: O(n log n)
-Opmerking: In de praktijk vaak het snelste door goede cache-prestaties en weinig overhead.
-Dus merge sort en quick sort zijn duidelijk veel efficiënter dan insertion sort en bubble sort.
-
-➖ 3. Insertion sort
-Gemiddeld: O(n²)
-Slechtste geval: O(n²)
-Beste geval: O(n) (bijna gesorteerde lijst)
-Opmerking: Veel beter dan bubble sort in de praktijk, heel efficiënt voor kleine of bijna gesorteerde lijsten.
-
-❌ 4. Bubble sort
-Gemiddeld: O(n²)
-Slechtste geval: O(n²)
-Beste geval: O(n) (als je de geoptimaliseerde versie gebruikt die stopt wanneer geen swaps meer gebeuren)
-Opmerking: Algemeen de traagste sorteermethode, zelden gebruikt.
-print(lijst)       # originele lijst blijft onveranderd
-Ook met reverse=True:
-gesorteerd = sorted(lijst, reverse=True)
