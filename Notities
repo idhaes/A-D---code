@@ -127,6 +127,22 @@ STRINGS
 .split()
 
 ' '.join(lst)
+❗ Belangrijk
+
+Alle elementen in de lijst moeten strings zijn.
+Anders krijg je een error:
+
+lst = ["a", 1, "b"]
+' '.join(lst)   # ERROR: 1 is geen string
+
+
+Je kunt elke scheidingsteken gebruiken:
+
+','.join(["a","b","c"])     # 'a,b,c'
+'-'.join(["2025","03","14"]) # '2025-03-14'
+''.join(['H','i','!'])      # 'Hi
+
+
 
 BLOEDGROEP-SPECIFIEKE FOUTEN
 
