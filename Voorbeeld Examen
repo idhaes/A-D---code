@@ -1,0 +1,163 @@
+#from itertools import product
+
+class Batch:
+    def __init__(self, quantity, cost_per_unit):
+        self.quantity = quantity
+        self.cost_per_unit = cost_per_unit
+
+    def __str__(self):
+        return f"Batch(quantity={self.quantity}, cost_per_unit={self.cost_per_unit})"
+
+class Product:
+    def __init__(self, product_name, holding_cost, stockout_penatly):
+        self.product_name = product_name
+        self.batches = []
+        self.holding_cost = holding_cost
+        self.stockout_penalty = stockout_penatly
+
+    def add_batch(self, quantity, cost_per_unit):
+        batch = Batch(quantity, cost_per_unit)
+        self.batches.append(batch)
+
+
+
+    def isEmpty(self):
+        return len(self.batches) == 0
+
+    def pop(self):
+        if self.isEmpty():
+            return None
+        else:
+            return self.batches.pop()
+
+    def fulfill_demand(self, demand): #Simulatie = True
+        resterende_demand = demand
+        while not self.isEmpty():
+            Batch = self.batches[-1]
+            if Batch.quantity <= resterende_demand:
+                resterende_demand -= Batch.quantity
+                self.pop()
+            else:
+                Batch.quantity -= resterende_demand
+                return 0
+        return resterende_demand * self.stockout_penalty
+
+
+    def calculate_holding_cost(self):
+        quantity = 0
+        for Batch in self.batches:
+            quantity += Batch.quantity
+        return quantity * self.holding_cost
+
+
+    def __str__(self):
+        result = f"Product {self.product_name}:\n"
+        for batch in self.batches:
+            result += f"{batch}\n" # Batch class heeft al een __str__ !!!
+        return result.rstrip()   # laatste newline weg
+
+##################################################################################################################
+
+class Inventory_Manager:
+    def __init__(self):
+        self.woordenboek = {}
+
+    def add_product(self, product_name, holding_cost, stockout_penatly):
+        if product_name in self.woordenboek:
+            print(f"Product {product_name} already exists.")
+        else:
+            self.woordenboek[product_name] = Product(product_name, holding_cost, stockout_penatly)
+
+
+    def restock_product(self, product_name, quantity, cost_per_unit):
+        if product_name not in self.woordenboek:
+            print(f"Product [{product_name}] not found")
+        else:
+            Product = self.woordenboek[product_name]
+            Product.add_batch(quantity, cost_per_unit)
+
+
+    def simulate_demand(self, min_demand = 0, max_demand = 20):
+        from random import randint
+        woordenboek = {}
+        for product_name in self.woordenboek:
+            demand = randint(min_demand, max_demand)
+            woordenboek[product_name] = demand
+        return woordenboek
+
+
+    def simulate_day(self, demand): # Geen simulatie !!! (Zie beneden)
+        totale_aanhoudingskosten = 0
+        totale_stockout_kosten = 0
+        for product_name, vraag in demand.items():
+            Product = self.woordenboek[product_name]
+            totale_stockout_kosten += Product.fulfill_demand(vraag)
+            totale_aanhoudingskosten += Product.calculate_holding_cost()
+        return totale_aanhoudingskosten, totale_stockout_kosten
+
+
+    def save_to_csv(self, filename):
+        file = open(filename, 'w')
+        file.write("[product_name],[batch_quantity],[batch_cost_per_unit]\n")
+        for product_name, Product in self.woordenboek.items(): # Geeft: (key, value)
+            for Batch in Product.batches:
+                file.write(f"{product_name},{Batch.quantity},{Batch.cost_per_unit}\n")
+        file.close()
+
+
+    def load_from_csv(self, filename):
+        file = open(filename, 'r')
+        header = file.readline()
+        for line in file:
+            line = line.strip()
+            if not line:
+                continue
+            product_name, batch_quantity, batch_cost_per_unit = line.split(',')
+            batch_quantity = int(batch_quantity)
+            batch_cost_per_unit = float(batch_cost_per_unit) #!!!!!!!!
+            if product_name not in self.woordenboek:
+                product = self.woordenboek[product_name] = Product(product_name,0,0) #Niet gedefinieerd
+                product.add_batch(batch_quantity, batch_cost_per_unit)
+            else:
+                self.woordenboek[product_name].add_batch(batch_quantity, batch_cost_per_unit)
+        file.close()
+
+
+    def print_inventory(self):
+        print('Current Inventory:')
+        for Product in self.woordenboek.values():
+            print(Product) # Product class heeft al een __str__ !!!
+            print() #lege lijn tussen de producten
+
+#################################################################################################################
+
+    def clone_product(self, product):
+        clone = Product(product.product_name,
+                        product.holding_cost,
+                        product.stockout_penalty)
+        for batch in product.batches:
+            # zelfde quantity & cost, nieuwe Batch-objecten
+            clone.add_batch(batch.quantity, batch.cost_per_unit)
+        return clone #Product object
+
+    def simulate(self, demand):
+        """
+        Simuleert een dag ZONDER de echte voorraad aan te passen.
+        Werkt op kopieën van de producten.
+        """
+        # 1) kopie van alle producten maken
+        temp_products = {}
+        for product_name, Product in self.woordenboek.items():
+            temp_products[product_name] = self.clone_product(Product)
+
+        # 2) simulatie draaien op de kopieën
+        totale_aanhoudingskosten = 0
+        totale_stockout_kosten = 0
+
+        for product_name, vraag in demand.items():
+            Product = temp_products[product_name]
+            totale_stockout_kosten += Product.fulfill_demand(vraag)
+            totale_aanhoudingskosten += Product.calculate_holding_cost()
+
+        # 3) echte self.products NIET aangepast
+        return totale_aanhoudingskosten, totale_stockout_kosten
